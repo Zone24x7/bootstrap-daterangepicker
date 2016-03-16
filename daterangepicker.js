@@ -988,7 +988,8 @@
             if (this.endDate)
                 this.container.find('input[name=daterangepicker_end]').val(this.endDate.format(this.locale.format));
 
-            if (this.singleDatePicker || (this.endDate && (this.startDate.isBefore(this.endDate) || this.startDate.isSame(this.endDate)))) {
+            if (this.singleDatePicker || (this.chosenLabel ===  this.locale.customRangeLabel&& this.endDate && (this.startDate.isBefore(this.endDate) || this.startDate.isSame(this.endDate)))) {
+                // apply button will be enabled only for the custom range and singleDatePicker
                 this.container.find('button.applyBtn').removeAttr('disabled');
             } else {
                 this.container.find('button.applyBtn').attr('disabled', 'disabled');
@@ -1133,11 +1134,16 @@
             this.container.addClass('show-calendar');
             this.move();
             this.element.trigger('showCalendar.daterangepicker', this);
+            //enable the apply button when showing the calenders
+            this.container.find('button.applyBtn').removeAttr('disabled');
+            this.container.find('.applyBtn').addClass(this.applyClass);
         },
 
         hideCalendars: function() {
             this.container.removeClass('show-calendar');
             this.element.trigger('hideCalendar.daterangepicker', this);
+            //dissable the apply button when hiding the calenders;
+            this.container.find('button.applyBtn').attr('disabled', 'disabled');
         },
 
         hoverRange: function(e) {
@@ -1161,6 +1167,9 @@
             var label = e.target.innerHTML;
             this.chosenLabel = label;
             if (label == this.locale.customRangeLabel) {
+                //TODO update apply btn class here
+                this.container.find('button.applyBtn').removeAttr('disabled');
+                this.container.find('.applyBtn').addClass(this.applyClass);
                 this.showCalendars();
             } else {
                 var dates = this.ranges[label];
@@ -1349,6 +1358,7 @@
         clickApply: function(e) {
             this.hide();
             this.element.trigger('apply.daterangepicker', this);
+            this.hideCalendars();
         },
 
         clickCancel: function(e) {
@@ -1356,6 +1366,7 @@
             this.endDate = this.oldEndDate;
             this.hide();
             this.element.trigger('cancel.daterangepicker', this);
+            this.hideCalendars();
         },
 
         monthOrYearChanged: function(e) {
