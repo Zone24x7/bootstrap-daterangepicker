@@ -57,6 +57,7 @@
         this.autoUpdateInput = true;
         this.alwaysShowCalendars = false;
         this.ranges = {};
+        this.showCalendarLabels =  false;
 
         this.opens = 'right';
         if (this.element.hasClass('pull-right'))
@@ -79,7 +80,9 @@
             customRangeLabel: 'Custom Range',
             daysOfWeek: moment.weekdaysMin(),
             monthNames: moment.monthsShort(),
-            firstDay: moment.localeData().firstDayOfWeek()
+            firstDay: moment.localeData().firstDayOfWeek(),
+            leftCalendarLabel : 'From',
+            rightCalendarLabel : 'To'
         };
 
         this.callback = function() { };
@@ -101,6 +104,7 @@
         if (typeof options.template !== 'string' && !(options.template instanceof $))
             options.template = '<div class="daterangepicker dropdown-menu">' +
                 '<div class="calendar left">' +
+                '<label class="leftCalLabel"></label>'+
                     '<div class="daterangepicker_input">' +
                       '<input class="input-mini" type="text" name="daterangepicker_start" value="" />' +
                       '<i class="fa fa-calendar glyphicon glyphicon-calendar"></i>' +
@@ -112,6 +116,7 @@
                     '<div class="calendar-table"></div>' +
                 '</div>' +
                 '<div class="calendar right">' +
+                '<label class="rightCalLabel"></label>'+
                     '<div class="daterangepicker_input">' +
                       '<input class="input-mini" type="text" name="daterangepicker_end" value="" />' +
                       '<i class="fa fa-calendar glyphicon glyphicon-calendar"></i>' +
@@ -165,6 +170,12 @@
 
             if (typeof options.locale.customRangeLabel === 'string')
               this.locale.customRangeLabel = options.locale.customRangeLabel;
+
+            if (typeof options.locale.leftCalendarLabel === 'string')
+                this.locale.leftCalendarLabel = options.locale.leftCalendarLabel;
+
+            if (typeof options.locale.rightCalendarLabel === 'string')
+                this.locale.rightCalendarLabel = options.locale.rightCalendarLabel;
 
         }
 
@@ -262,6 +273,9 @@
 
         if (typeof options.alwaysShowCalendars === 'boolean')
             this.alwaysShowCalendars = options.alwaysShowCalendars;
+
+        if (typeof options.showCalendarLabels === 'boolean')
+            this.showCalendarLabels = options.showCalendarLabels;
 
         // update day names order to firstDay
         if (this.locale.firstDay != 0) {
@@ -395,6 +409,12 @@
             this.container.find('.cancelBtn').addClass(this.cancelClass);
         this.container.find('.applyBtn').html(this.locale.applyLabel);
         this.container.find('.cancelBtn').html(this.locale.cancelLabel);
+
+        //apply CSS classes and labels to calender labels
+        if(this.showCalendarLabels){
+            this.container.find('.leftCalLabel').html(this.locale.leftCalendarLabel);
+            this.container.find('.rightCalLabel').html(this.locale.rightCalendarLabel);
+        }
 
         //
         // event listeners
