@@ -23,7 +23,7 @@
         <h1 style="margin: 0 0 20px 0">Configuration Builder</h1>
 
         <div class="well configurator">
-           
+
           <form>
           <div class="row">
 
@@ -71,7 +71,7 @@
 
               <div class="checkbox">
                 <label>
-                  <input type="checkbox" id="showDropdowns"> showDropdowns
+                  <input type="checkbox" id="showDropdowns" checked="checked"> showDropdowns
                 </label>
               </div>
 
@@ -118,7 +118,7 @@
 
               <div class="checkbox">
                 <label>
-                  <input type="checkbox" id="ranges"> ranges (with example predefined ranges)
+                  <input type="checkbox" id="ranges" checked="checked"> ranges (with example predefined ranges)
                 </label>
               </div>
 
@@ -130,7 +130,7 @@
 
               <div class="checkbox">
                 <label>
-                  <input type="checkbox" id="linkedCalendars" checked="checked"> linkedCalendars
+                  <input type="checkbox" id="linkedCalendars" > linkedCalendars
                 </label>
               </div>
 
@@ -148,7 +148,13 @@
 
               <div class="checkbox">
                 <label>
-                  <input type="checkbox" id="showCalendarLabels"> showCalendarLabels
+                  <input type="checkbox" id="showCalendarLabels" checked="checked"> showCalendarLabels
+                </label>
+              </div>
+
+              <div class="checkbox">
+                <label>
+                  <input type="checkbox" id="showSingleCalanderForDateRange" checked="checked"> showSingleCalanderForDateRange
                 </label>
               </div>
 
@@ -227,7 +233,7 @@
         $('#config-text').keyup(function() {
           eval($(this).val());
         });
-        
+
         $('.configurator input, .configurator select').change(function() {
           updateConfig();
         });
@@ -285,8 +291,8 @@
             options.ranges = {
               'Today': [moment(), moment()],
               'Yesterday': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
-              'Last 7 Days': [moment().subtract(6, 'days'), moment()],
-              'Last 30 Days': [moment().subtract(29, 'days'), moment()],
+              'Last 7 Days': [moment().subtract(7, 'day').endOf('day'), moment().subtract(1, 'day').startOf('day')],
+              'Last 30 Days': [moment().subtract(31, 'day').endOf('day'), moment().subtract(1, 'day').startOf('day')],
               'This Month': [moment().startOf('month'), moment().endOf('month')],
               'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
             };
@@ -318,6 +324,9 @@
 
           if ($('#showCalendarLabels').is(':checked'))
             options.showCalendarLabels = true;
+
+          if($('#showCalendarLabels').is(':checked'))
+            options.showSingleCalanderForDateRange = true;
 
           if ($('#parentEl').val().length)
             options.parentEl = $('#parentEl').val();

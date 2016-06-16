@@ -44,7 +44,7 @@ $daterangepicker-unselected-bg-color:        #fff !default;
 
 //
 // daterangepicker
-$daterangepicker-width:          278px !default;
+$daterangepicker-width:          200px !default;
 $daterangepicker-padding:        4px !default;
 $daterangepicker-z-index:        3000 !default;
 
@@ -90,6 +90,14 @@ $daterangepicker-control-active-border-color:  #08c !default;
 $daterangepicker-control-active-border-radius: $daterangepicker-control-border-radius !default;
 
 $daterangepicker-control-disabled-color:       #ccc !default;
+
+
+$daterangepicker-input-active-border-size:    2px !default;
+$daterangepicker-input-active-shadow-color:   #ccc !default;
+$daterangepicker-input-active-shadow-left:    2px !default;
+$daterangepicker-input-active-shadow-right:   3px !default;
+
+$daterangepicker-input-active-error-border-color: #cc3200 !default;
 
 //
 // Ranges
@@ -305,13 +313,13 @@ $daterangepicker-ranges-active-border-radius: $daterangepicker-border-radius !de
       border-radius: 0;
     }
 
-    &.start-date {
-      border-radius: $daterangepicker-cell-border-radius 0 0 $daterangepicker-cell-border-radius;
-    }
+  //  &.start-date {
+  //    border-radius: $daterangepicker-cell-border-radius 0 0 $daterangepicker-cell-border-radius;
+  //  }
 
-    &.end-date {
-      border-radius: 0 $daterangepicker-cell-border-radius $daterangepicker-cell-border-radius 0;
-    }
+  //  &.end-date {
+    //  border-radius: 0 $daterangepicker-cell-border-radius $daterangepicker-cell-border-radius 0;
+//    }
 
     &.start-date.end-date {
       border-radius: $daterangepicker-cell-border-radius;
@@ -385,8 +393,13 @@ $daterangepicker-ranges-active-border-radius: $daterangepicker-border-radius !de
     width: 100%;
 
     &.active {
-      border: $daterangepicker-control-active-border-size solid $daterangepicker-control-active-border-color;
+      border: $daterangepicker-input-active-border-size solid $daterangepicker-control-active-border-color;
       border-radius: $daterangepicker-control-active-border-radius;
+      box-shadow: $daterangepicker-input-active-shadow-left $daterangepicker-input-active-shadow-right $daterangepicker-input-active-shadow-color;
+
+      &.error{
+        border: $daterangepicker-input-active-border-size solid $daterangepicker-input-active-error-border-color;
+      }
     }
   }
 

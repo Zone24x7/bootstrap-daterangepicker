@@ -27,6 +27,7 @@
     "moment": "^2.9.0"
   },
   "devDependencies": {
+    "gulp-sass": "^2.3.1",
     "node-sass": "^3.4.2"
   }
 }
