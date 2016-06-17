@@ -441,7 +441,7 @@
           //TODO currently do nothing
         }
 
-          this.container.find('input[name="daterangepicker_start"]').addClass('active');
+        //  this.container.find('input[name="daterangepicker_start"]').addClass('active');
           this.container.find('input[name="daterangepicker_end"]').removeClass('active');
 
         //
@@ -568,13 +568,7 @@
                     this.container.find('.right .calendar-time select').removeAttr('disabled').removeClass('disabled');
                 }
             }
-            if (this.endDate) {
-                //this.container.find('input[name="daterangepicker_end"]').addClass('active');
-              //  this.container.find('input[name="daterangepicker_start"]').addClass('active');
-            } else {
-            //    this.container.find('input[name="daterangepicker_end"]').addClass('active');
-              //  this.container.find('input[name="daterangepicker_start"]').addClass('active');
-            }
+
             this.updateMonthsInView();
             this.updateCalendars();
             this.updateFormInputs();
@@ -582,17 +576,6 @@
 
         updateMonthsInView: function() {
             if (this.endDate) {
-
-                //if both dates are visible already, do nothing
-                /*
-                if (!this.singleDatePicker && this.leftCalendar.month && this.rightCalendar.month &&
-                    (this.startDate.format('YYYY-MM') == this.leftCalendar.month.format('YYYY-MM') || this.startDate.format('YYYY-MM') == this.rightCalendar.month.format('YYYY-MM'))
-                    &&
-                    (this.endDate.format('YYYY-MM') == this.leftCalendar.month.format('YYYY-MM') || this.endDate.format('YYYY-MM') == this.rightCalendar.month.format('YYYY-MM'))
-                    ) {
-                    return;
-                }
-                */
 
                 var isEndActive = this.container.find('input[name="daterangepicker_end"]').hasClass('active');
                 if(isEndActive){
@@ -1044,10 +1027,6 @@
 
         updateFormInputs: function() {
 
-            //ignore mouse movements while an above-calendar text input has focus
-          //  if (this.container.find('input[name=daterangepicker_start]').is(":focus") || this.container.find('input[name=daterangepicker_end]').is(":focus"))
-          //      return;
-
             this.container.find('input[name=daterangepicker_start]').val(this.startDate.format(this.locale.format));
             if (this.endDate)
                 this.container.find('input[name=daterangepicker_end]').val(this.endDate.format(this.locale.format));
@@ -1347,7 +1326,6 @@
           this.renderCalendar('left');
           this.renderCalendar('right');
           this.updateView();
-          //this.container.find('button.applyBtn').attr('disabled', 'disabled');
         },
 
         clickDate: function(e) {
@@ -1376,59 +1354,6 @@
               this.setEndDate(date.clone());
             }
             this.updateView();
-/*
-            if (this.endDate || date.isBefore(this.startDate, 'day')) {
-                if (this.timePicker) {
-                    var hour = parseInt(this.container.find('.left .hourselect').val(), 10);
-                    if (!this.timePicker24Hour) {
-                        var ampm = this.container.find('.left .ampmselect').val();
-                        if (ampm === 'PM' && hour < 12)
-                            hour += 12;
-                        if (ampm === 'AM' && hour === 12)
-                            hour = 0;
-                    }
-                    var minute = parseInt(this.container.find('.left .minuteselect').val(), 10);
-                    var second = this.timePickerSeconds ? parseInt(this.container.find('.left .secondselect').val(), 10) : 0;
-                    date = date.clone().hour(hour).minute(minute).second(second);
-                }
-                this.endDate = null;
-                this.setStartDate(date.clone());
-            } else if (!this.endDate && date.isBefore(this.startDate)) {
-                //special case: clicking the same date for start/end,
-                //but the time of the end date is before the start date
-                this.setEndDate(this.startDate.clone());
-            } else {
-                if (this.timePicker) {
-                    var hour = parseInt(this.container.find('.right .hourselect').val(), 10);
-                    if (!this.timePicker24Hour) {
-                        var ampm = this.container.find('.right .ampmselect').val();
-                        if (ampm === 'PM' && hour < 12)
-                            hour += 12;
-                        if (ampm === 'AM' && hour === 12)
-                            hour = 0;
-                    }
-                    var minute = parseInt(this.container.find('.right .minuteselect').val(), 10);
-                    var second = this.timePickerSeconds ? parseInt(this.container.find('.right .secondselect').val(), 10) : 0;
-                    date = date.clone().hour(hour).minute(minute).second(second);
-                }
-                this.setEndDate(date.clone());
-                if (this.autoApply) {
-                  this.calculateChosenLabel();
-                  this.clickApply();
-                }
-            }
-
-            */
-
-/*
-            if (this.singleDatePicker) {
-                this.setEndDate(this.startDate);
-                if (!this.timePicker)
-                    this.clickApply();
-            }
-
-            this.updateView();
-*/
         },
 
         calculateChosenLabel: function() {
@@ -1617,7 +1542,7 @@
 
         keydown: function(e) {
             //hide on tab or enter
-            if ((e.keyCode === 9) || (e.keyCode === 13)) {
+            if ((e.keyCode === 9) || (e.keyCode === 13) || (e.keyCode === 27)) {
                 this.hide();
             }
         },
