@@ -289,6 +289,7 @@
 
           if ($('#ranges').is(':checked')) {
             options.ranges = {
+              'Last 1 Hour': [moment().subtract(1, 'hour').startOf('minite'), moment()],
               'Today': [moment(), moment()],
               'Yesterday': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
               'Last 7 Days': [moment().subtract(7, 'day').endOf('day'), moment().subtract(1, 'day').startOf('day')],

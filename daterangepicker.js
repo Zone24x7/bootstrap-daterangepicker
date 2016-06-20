@@ -343,8 +343,9 @@
 
                 // If the end of the range is before the minimum or the start of the range is
                 // after the maximum, don't display this range option at all.
-                if ((this.minDate && end.isBefore(this.minDate)) || (maxDate && start.isAfter(maxDate)))
-                    continue;
+                // -- removed this to show the last hour time range even the today is blocked from the calender 
+                //  if ((this.minDate && end.isBefore(this.minDate)) || (maxDate && start.isAfter(maxDate)))
+                //    continue;
 
                 //Support unicode chars in the range names.
                 var elem = document.createElement('textarea');
@@ -1542,7 +1543,7 @@
 
         keydown: function(e) {
             //hide on tab or enter
-            if ((e.keyCode === 9) || (e.keyCode === 13) || (e.keyCode === 27)) {
+            if ((e.keyCode === 9) || (e.keyCode === 13) || (e.keyCode === 2)) {
                 this.hide();
             }
         },
